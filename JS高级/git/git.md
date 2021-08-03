@@ -9,6 +9,10 @@ git rm 从暂存区删除文件
 git clone 仓库地址 克隆项目
 git config --list 查看配置
 git push 
+git branch -a 查看分支
+git branch 查看当前分支 创建分支
+git checkout 分支名 切换分支
+git branch -d test 删除分支
 1.设置用户名邮箱
 2.添加文件到暂存区 git add
 3.添加到本地仓库 git commit 
