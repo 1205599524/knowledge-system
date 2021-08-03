@@ -8,3 +8,11 @@ git config --global user.eamil '1205599524@qq.com' 设置用户邮箱
 git rm 从暂存区删除文件
 git clone 仓库地址 克隆项目
 git config --list 查看配置
+git push 
+1.设置用户名邮箱
+2.添加文件到暂存区 git add
+3.添加到本地仓库 git commit 
+4.添加到远程仓库 git push
+github网页
+文件名.github.io
+文件 index.html
