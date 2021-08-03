@@ -1,0 +1,1 @@
+通过 express-generator模块可用express 包名 -e 快速创建目录结构

@@ -1,0 +1,11 @@
+node.js是单进程单线程应用程序
+js运行机制
+开启进程
+开启线程
+初始化数据：window/document/location..
+while(true){
+    初始化事件列表
+    根据事件修改数据
+    根据数据渲染页面
+    JS代码
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label{
+            height: 100px;
+            width: 100px;
+            display: inline-block;
+            border: 1px dashed #03a9f4;
+            font-size: 20px;
+            text-align: center;
+            line-height: 100px;
+            color: #03a9f4;
+            cursor: pointer;
+            position: relative;
+        }
+        input{
+            opacity: 0;
+        }
+        button{
+            vertical-align: top;
+            display: inline-block;
+            color: white;
+            height: 30px;
+            width: 100px;
+            border: none;
+            background: #03a9f4;
+            margin-top: 70px;
+        }
+        img{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>文件上传</h1>
+    <form action="localhost:3000/upload" method="post" enctype="multipart/form-data" id="form">
+    <label for="submit">+
+        <input type="file" name="imgupload" id="submit">
+    </label>
+    <button type="button">提交</button>
+    </form>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<script>
+    const input=document.querySelector("#submit")
+    const form=document.querySelector("#form")
+    const btn=document.querySelector("button")
+    let formdata
+    let file
+    input.onchange=function(){
+        //需要将文件对象放入Formdata中进行提交
+         formdata=new FormData()
+        //键值对 name:files[0] 文件对象在input的files属性中
+        // formdata.imgupload=this.files[0]
+        file=this.files[0]
+        //创建临时映射地址
+        let imgsrc=window.webkitURL.createObjectURL(file)
+        let img=new Image()
+        img.src=imgsrc
+        $("label").append(img)
+        formdata.append("imgupload",input.files[0])
+        
+    }
+    function ajax(arg,url){
+        var httprequest=new XMLHttpRequest()
+        httprequest.open("post",url)
+        httprequest.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+        
+        let objson=arg
+        httprequest.send(objson)
+        httprequest.onreadystatechange=function(){
+            if(httprequest.readyState==4&&httprequest.status==200){
+                console.log(httprequest.responseText)
+            }
+        }
+    }
+    // btn.onclick=function(){
+    //     console.log(formdata)
+    //     ajax(formdata,"http://192.168.1.6:3000/upload")
+    // }
+    $("button").click(function(){
+        $.ajax({
+            url:"http://192.168.1.6:3000/upload",
+            method:"POST",
+            data:formdata,
+            processData:false,
+            contentType:false,
+        })
+        alert("上传成功")
+    })
+</script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // let a = {}
+    // b='0'
+    // c=0;
+    // a[b]="a[b]"
+    // a[c]='a[c]'
+    // console.log(a[b])//a[c]
+//a['0'] a[0] 堆中 {'0':'a[b]'} 对象属性名不能重复 a[0]重新赋值 {0：'a[c]'}
+
+let a={},b={n:'1'},c={m:'2'}
+a[b]='a[b]'
+a[c]='a[c]'
+console.log(a[b])//a[c]
+//实际对象做为属性会调toString方法 即 {[Object Objiec]:'a[b]'},又覆盖{[Object Objiec]:'a[c]'}
+
+//衍生
+//对象和数组的区别
+//实现一个symbol
+//Object.prototype.toString 和 valueOf
+</script>
+</html>

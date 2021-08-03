@@ -1,0 +1,8 @@
+let express=require("express")
+let app=express()
+app.get("/",(req,res)=>{
+    res.send("hello")
+})
+app.listen(3000,function(){
+    console.log("服务器启动成功")
+})

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            height: 300px;
+            width: 200px;
+            background: red;
+            display: none;
+           
+        }
+    </style>
+</head>
+<body>
+    <img src="https://pics3.baidu.com/feed/83025aafa40f4bfb298d0c039ceca2f8f63618b0.jpeg?token=82a2c0f9a8d7a43eceee5e21a9eacbbd" alt="">
+    <img src="" alt="">
+    <div class="random"></div>
+    <button class="btn">按钮</button>
+    <div class="slideshow">
+        
+        <button class="down"> 下滑</button>
+        <button class="up">上升</button>
+        <button class="togle">切换</button>
+        <div class="box"></div>
+    </div>
+    <ul></ul>
+</body>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+    //四种入口写法 不会被覆盖  区别于window.onload
+    $(document).ready(function(){
+        console.log($("img")[0])
+        
+    })
+    $(function(){
+     console.log($("img")[0].width)
+    })
+    jQuery(document).ready(function(){
+        console.log($("img")[0])
+    })
+    jQuery(function(){
+        
+    })
+    //解决冲突问题 释放$使用权
+    //jQuery.noConflict();//设置之后就只能使用jquery操作符
+    //自定义访问符号
+    //var nj=jQuery.noConflict()//设置之后用nj代替$访问
+    //$() 核心函数
+    //接收函数、字符串、代码片段(创建标签)、dom元素（包装一个jquery对象的dom）
+    //forEach  each可以遍历伪数组
+    $.each([1,2,3],function(index,value){
+        console.log(index,value)
+    })
+    $.each({0:2,1:2,2:3,length:3},function(index,value){
+        console.log(index,value)
+    })
+    //jquery中的map方法 可以遍伪维数组 第一个参数索引，第二个value map默认返回值为空数组（把返回值运算后组成新数组返回），each默认返回值遍历谁就返回谁（不支持内部处理）
+    let str=$.trim(" da  s ")//去除2端空格
+    let w=$.isWindow(window)//判断是否为window对象 isArray(判断真数组) isFunction(判断函数)
+
+    $.holdReady(true)//暂停read事件，传入false恢复
+    //内容选择器:empty $("div:empty") 找到既没有文本也没有子元素的div :parent 找到有文本和有子元素的dom :contains(contains("我是div")找到指定文本的元素) ：has(找到包含指定子元素的dom)
+    $("img:nth-child(1)").attr("class","img")//传递一个参数获取(返回第一个的值)，2个参数设置，removeAttr(删除)
+    console.log($("img").attr("class"))
+    //prop和removeprop和attr一致，但是遇到具有true和false的属性节点时(checkes selected disable)prop返回值为true或者false,attr返回字符串或undefind
+    $("img").addClass('jqclass') //removeClass(删除) toggleClass(切换类，有则添加无则删除)
+    $(".random").html("<p>html</p>") //类别innerHTML  .text(类比innerText) .val(设置获取input内值)
+    //批量设置样式,行内样式
+    $(".random").css({
+      width:"100px",
+      height:"100px"
+    })
+    console.log($(".random").css("width"))//获取属性值
+    $(".random").offset({left:50})//设置相对于窗口的偏移量
+    console.log($(".random").offset().left)//获取偏移量
+    $(".random").position().left//获取离父元素偏移值 只能获取，不能设置
+    $(".random").scrollTop(300)//设置||获取滚动偏移量
+    //事件绑定的2种方式
+    $(".btn").click(function(){
+        alert("hh")
+    })
+    $(".btn").on("mouseover",function(){
+        console.log("hh")
+    })
+    //不传递参数 移除所有事件，可以指定事件类型移除，传参1个 移除指定类型 指定事件，传参2个 （“click”,funname） 
+    $(".btn").trigger("click")//自动触发事件 triggerHandler//会自动阻止冒泡和默认事件（除a跳转）
+    //自定义事件,需通过on自定义 通过trigger触发
+    $(".btn").on("myclick",function(){
+        console.log("xx")
+    })
+    $(".btn").trigger("myclick")
+    //事件命名空间
+    $(".btn").on("myclick.zs",function(){
+        console.log("xx")
+    })
+    $(".btn").trigger("myclick.zs")
+    //事件委托,将div的事件委托给body执行 此处的this指向div
+    $('body').delegate('.random',"click",function(){
+        console.log($(this).html())
+    })
+    //移入移出事件,接收2个参数，移入和移出函数
+    $(".random").hover(()=>{},()=>{})
+    //$(this).siblings() //找到非this的其它元素
+    $(".random").show(1000)//显示动画 .hide(1000)//隐藏 可接受第二个参数funtion，动画执行完毕后执行 .toggle(1000) 有则显示无则隐藏动画
+    //监听网页滚动事件
+    $(window).scroll(function(){})
+    //上划下拉切换 .stop停止动画执行 
+    $(".down").click(function(){
+        $(".box").slideDown(1000)
+    })
+    $(".up").click(function(){
+        $(".box").slideUp(1000)
+    })
+    $(".togle").click(function(){
+        $(".box").toggle(1000)
+    })
+    //fadeIn fadeOut fadeToggle 淡入淡出 fadeTo(1000,0.5) //传参控制淡入淡出值
+    //自定义动画 3个||4个参数 $(el).animate({css},1000,func)||$(el).animate({css},1000,"linear",func)
+    //累加属性 $(el).animate({width:"+=100"},1000,func) 执行一次累加一次  width:"toggle" 关键字设置动画
+    //链式执行 $(el).animate({width:"+=100"},1000,func).delay(1000).$(el).animate({width:"+=100"},1000,func)  
+    //.stop(“是否停止后续动画”，“是否完成当前动画”)不传参默认false,false 第二个控制当前执行动画，第一个为后续执行动画
+
+    var liobj=$("<li></li>")//新增节点
+    $("ul").append(liobj)//添加节点 preppend 添加到最前 liobj.appendTo("ul")//一样 after添加到外部的后面  before添加到前面
+    //删除节点 $(el).remove()//删除el  .empty//删除el内部所有 
+    //替换节点 replaceWith replaceAll 区别在于主动和被动
+   $.ajax({
+       type:"get",
+       data:{},
+       dataType:"json",
+       success:function(result){
+console.log(result)
+       }
+   })
+
+</script>
+</html>

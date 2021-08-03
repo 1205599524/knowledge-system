@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="500" height="500" id="mycanvas"></canvas>
+</body>
+<script>
+    const mycan=document.querySelector("#mycanvas")
+    const ctx=mycan.getContext("2d")
+    ctx.fillStyle='green'
+    ctx.fillRect(100,100,100,100)// x y w h
+    //canvas的像素化
+    //一旦绘制成功了，canvas就像素化，没有能力再修改已经在画布中的内容，如果想要让canvas图形移动，必须按照清屏-更新-渲染的逻辑进行编程
+</script>
+</html>
