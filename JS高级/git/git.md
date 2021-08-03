@@ -18,5 +18,5 @@ git branch -d test 删除分支
 3.添加到本地仓库 git commit 
 4.添加到远程仓库 git push
 github网页
-文件名.github.io
+文件名.github.  ,,
 文件 index.html
