@@ -5,16 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <style>
+        canvas{
+            border: 1px solid #333;
+        }
+    </style>
 </head>
 <body>
     <canvas width="500" height="500" id="mycanvas"></canvas>
+    <button class="fillrect">填充矩形</button>
+    <button class="strokerect">描边矩形</button>
+    <button class="clear">擦除画布</button>
+    <button class="path">绘制路径</button>
+    <button class="rec">绘制圆弧</button>
 </body>
 <script>
     const mycan=document.querySelector("#mycanvas")
+    const btn=document.querySelector(".clear")
+    const btnpath=document.querySelector(".path")
+    const btnfillrect=document.querySelector(".fillrect")
+    const btnstrokerect=document.querySelector(".strokerect")
     const ctx=mycan.getContext("2d")
-    ctx.fillStyle='green'
+    btnfillrect.onclick=()=>{
+        ctx.fillStyle='green'
     ctx.fillRect(100,100,100,100)// x y w h
+    }
+    btnstrokerect.onclick=()=>{
+        //绘制矩形边框
+    ctx.strokeStyle='red'
+    ctx.strokeRect(200,200,100,100)
+    }
+    
     //canvas的像素化
     //一旦绘制成功了，canvas就像素化，没有能力再修改已经在画布中的内容，如果想要让canvas图形移动，必须按照清屏-更新-渲染的逻辑进行编程
+   
+    btn.onclick=()=>{
+        ctx.clearRect(0,0,mycan.width,mycan.height)//清除画布
+    }
+    //绘制路径
+    btnpath.onclick=()=>{
+        ctx.beginPath()//创建路径
+        ctx.moveTo(100,100)//移动绘制点
+        ctx.lineTo(100,200)
+        ctx.lineTo(200,300)
+        ctx.lineTo(260,360)
+        ctx.closePath()
+        ctx.strokeStyle="red"
+        ctx.stroke()
+        ctx.fillStyle="orange"
+        ctx.fill()
+    }
+    //绘制圆弧 arc(x,y,radius,startAngle,endAngle,anticlockwise)//x,y,r,开始到结束的弧度，默认顺时针
+    $('.rec').click(()=>{
+        ctx.beginPath();
+        ctx.arc(200,200,100,0,Math.PI,true)//逆时针 弧度
+        ctx.globalAlpha=0.2;
+        ctx.lineWidth=15//设置粗细
+        ctx.lineCap="round"//butt round square 末端线型
+        ctx.stroke()
+    })
 </script>
 </html>
