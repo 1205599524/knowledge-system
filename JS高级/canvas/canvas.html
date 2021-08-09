@@ -19,6 +19,12 @@
     <button class="clear">擦除画布</button>
     <button class="path">绘制路径</button>
     <button class="rec">绘制圆弧</button>
+    <button class="textbtn">设置文本</button>
+    <button class="linear">设置渐变</button>
+    <button class="showdow">设置阴影</button>
+    <button class="pic">使用图片</button>
+    <button class="change">变形实例</button>
+    <button class="bezier">绘制曲线</button>
 </body>
 <script>
     const mycan=document.querySelector("#mycanvas")
@@ -62,7 +68,58 @@
         ctx.arc(200,200,100,0,Math.PI,true)//逆时针 弧度
         ctx.globalAlpha=0.2;
         ctx.lineWidth=15//设置粗细
+        ctx.setLineDash([10,20])//定义虚线的样式，可以穿多个状态，一组状态为2个值，第一个长度，第二个距离
+        ctx.setLineDashOffset=20//起事偏移量
+        ctx.lineJoin='round'//设置连接处显示的状态 bevel miter
         ctx.lineCap="round"//butt round square 末端线型
+        ctx.stroke()
+    })
+    $('.textbtn').click(()=>{
+        ctx.font="30px 微软雅黑"
+        ctx.textAlign="center"//start end left right
+        ctx.fillText("微软雅黑文字",100,100)
+    })
+    $(".linear").click(()=>{
+        var linear=ctx.createLinearGradient(0,0,200,100)//x0 y0 x1 y1 开始点和结束点
+        linear.addColorStop(0,"red")//0-1之间的渐变设置
+        linear.addColorStop(1,"purple")
+        ctx.fillStyle=linear;
+        ctx.fillRect(10,10,200,100)
+
+    })
+    $(".showdow").click(()=>{
+        ctx.shadowOffsetX=1
+        ctx.shadowOffsetY=1
+        ctx.shadowBlur=1
+        ctx.shadowColor="red"
+        ctx.fillStyle='green'
+        ctx.fillRect(100,100,200,200)
+    })
+    $(".pic").click(()=>{
+        var img=new Image()
+        img.src="1.png"
+        img.onload=()=>{
+        ctx.drawImage(img,100,100,200,100,50,50,50,50)//切宽 切高 切X 切Y X Y W H 如果是四个参数则表示图片的位置和宽高
+        }
+    })
+    $('.change').click(()=>{
+        ctx.save()
+        ctx.translate(50,50)
+        ctx.rotate(50,50,45)
+        ctx.scale(0.5,0.5)//x y
+        ctx.fillRect(0,0,100,100)
+        ctx.restore()
+        ctx.fillRect(0,0,100,100)
+        //使用变形之前save()保存状态 完毕后restore()清除状态 因为画布变形后会影响下一次操作
+    })
+    $('.bezier').click(()=>{
+        ctx.beginPath()
+        ctx.moveTo(200,200)
+        ctx.quadraticCurveTo(130,40,230,150)
+        ctx.stroke()
+        ctx.beginPath()
+        ctx.moveTo(230,150)
+        ctx.quadraticCurveTo(230,150,130,60)
         ctx.stroke()
     })
 </script>
